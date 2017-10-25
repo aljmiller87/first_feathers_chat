@@ -71,7 +71,11 @@
         <p class="center-text">For more information on Feathers see <a href="https://docs.feathersjs.com" title="Feathers Documentation" target="blank">docs.feathersjs.com</a>.</p>
       </footer>
 
+      <input type="text" placeholder="message text" id="message" name="">
       <button style="margin:100px;" onClick="sendMessage();">Send Message</button>
+      <ul id="messageList">
+        
+      </ul>
     </main>
 
     <script src="//unpkg.com/feathers-client@^2.0.0-pre.1/dist/feathers.js">
@@ -87,11 +91,13 @@
       var messages = app.service('messages');
      
       messages.on('created', function(message) {
-        console.log("Your message was sent", message.text);
+        var messageList = document.getElementById("messageList");
+        messageList.innerHTML += "<li>" + message.text + "</li>";
       });
 
       function sendMessage() {
-        messages.create({text: 'Hello world!'})
+        var messageText = document.getElementById("message").value;
+        messages.create({text: messageText})
       }
     </script>
   </body>
